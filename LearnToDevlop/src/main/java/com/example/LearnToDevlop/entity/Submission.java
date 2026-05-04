@@ -12,14 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Enrollment {
+public class Submission {
     private Long id;
-
+    @ManyToOne
+    private Assignment assignment;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private Course course;
-    private int progress;
-
-
+    private int score;
+    private String status;
 }
