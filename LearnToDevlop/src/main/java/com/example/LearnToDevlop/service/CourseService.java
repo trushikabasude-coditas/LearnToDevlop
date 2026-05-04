@@ -2,6 +2,7 @@ package com.example.LearnToDevlop.service;
 
 import com.example.LearnToDevlop.dto.CourseDTO;
 import com.example.LearnToDevlop.entity.Course;
+import com.example.LearnToDevlop.exception.ResourceNotFoundException;
 import com.example.LearnToDevlop.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 public class CourseService {
     private  CourseRepository courseRepository;
-    public CourseDTO create(CourseDTO dto) {
+    public CourseDTO add(CourseDTO dto) {
         Course c=new Course();
         c.setName(dto.getName());
         c.setTechnology(dto.getTechnology());
