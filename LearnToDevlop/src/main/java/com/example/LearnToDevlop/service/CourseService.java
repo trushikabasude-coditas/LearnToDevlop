@@ -1,6 +1,6 @@
 package com.example.LearnToDevlop.service;
 
-import com.example.LearnToDevlop.dto.CourseDTO;
+import com.example.LearnToDevlop.dto.CourseRequest;
 import com.example.LearnToDevlop.entity.Course;
 import com.example.LearnToDevlop.exception.ResourceNotFoundException;
 import com.example.LearnToDevlop.repository.CourseRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CourseService {
     private  CourseRepository courseRepository;
-    public CourseDTO add(CourseDTO dto) {
+    public CourseRequest add(CourseRequest dto) {
         Course c=new Course();
         c.setName(dto.getName());
         c.setTechnology(dto.getTechnology());
@@ -19,19 +19,19 @@ public class CourseService {
         c.setLink(dto.getLink());
         return mapToDTO(courseRepository.save(c));
     }
-    public List <CourseDTO> getAll(){
+    public List <CourseRequest> getAll(){
         return courseRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
 
     }
-    public CourseDTO getById(Long id) {
+    public CourseRequest getById(Long id) {
         Course c = courseRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Cource not found"));
         return mapToDTO(c);
     }
-    public CourseDTO update(Long  id, CourseDTO dto) {
+    public CourseRequest update(Long  id, CourseRequest dto) {
         Course c = courseRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Courses not found"));
 
         c.setName(dto.getName());
@@ -47,8 +47,8 @@ public class CourseService {
         }
         courseRepository.deleteById(id);
     }
-    private CourseDTO mapToDTO(Course c){
-        CourseDTO dto = new CourseDTO();
+    private CourseRequest mapToDTO(Course c){
+        CourseRequest dto = new CourseRequest();
         dto.setId(c.getId());
         dto.setName(c.getName());
         dto.setTechnology(c.getTechnology());

@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Submission {
     private Long id;
     @ManyToOne
-    private Assignment assignment;
+    private Assessment assignment;
     @ManyToOne
     private User user;
     private int score;

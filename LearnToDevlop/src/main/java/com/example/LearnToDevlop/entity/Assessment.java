@@ -11,14 +11,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Assignment {
+@Table(name = "assessments")
+public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String details;
-    private int maxScore;
-    @ManyToOne
+    @Column(nullable = false)
+    private String tittle;
+    private int totalMarks;
+    private int passedMarks;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id",nullable = false,unique = true)
     private Course course;
 
 

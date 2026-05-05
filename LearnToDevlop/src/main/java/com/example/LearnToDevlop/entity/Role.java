@@ -1,4 +1,4 @@
-package com.example.LearnToDevlop;
+package com.example.LearnToDevlop.entity;
 
 public enum Role {
     ADMIN,
