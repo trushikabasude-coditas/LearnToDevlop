@@ -54,3 +54,9 @@ import java.util.List;
                 return ResponseEntity.status(201).body(ApiResponse.ok("Module added", courseService.addModule(id, dto)));
             }
         }
+//            //get All the modules from that particular course
+//            @GetMapping("/{id}/modules")
+//            public ResponseEntity<ApiResponse<List<CourseModule>>> getModule() {
+//                    return ResponseEntity.ok(ApiResponse.ok("Modules fetched", courseService.getAll()));
+//
+

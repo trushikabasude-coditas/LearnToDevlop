@@ -18,10 +18,13 @@ public class Enrollment {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
+    @JoinColumn(name="course_id")
     private Course course;
     private int progress;
+
 
 
 }

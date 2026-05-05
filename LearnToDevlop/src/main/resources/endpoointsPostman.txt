@@ -26,4 +26,6 @@ Post-http://localhost:8080/api/courses
      "description": "Learn Java from scratch",
      "technology": "Java",
      "duration": "4 weeks"
-     }
+}
+..under course we can create the  modules
+

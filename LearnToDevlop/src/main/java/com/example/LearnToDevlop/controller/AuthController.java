@@ -32,4 +32,5 @@ public class AuthController {
             @RequestHeader(value = "Authorization", required = false) String header) {
         return ResponseEntity.ok(ApiResponse.ok(authService.logout(header)));
     }
+
 }
