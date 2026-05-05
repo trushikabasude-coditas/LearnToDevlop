@@ -24,5 +24,5 @@ public class Course {
     private String duration;
     @OneToMany(mappedBy = "course",cascade =CascadeType.ALL, orphanRemoval = true )
     @Builder.Default
-    private List<Module> modules=new ArrayList<>();
+    private List<CourseModule> modules=new ArrayList<>();
 }

@@ -13,43 +13,43 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-    @RestController
-    @RequestMapping("/api/courses")
-    @RequiredArgsConstructor
-    public class CourseController {
-        @Autowired
-        private CourseService courseService;
+        @RestController
+        @RequestMapping("/api/courses")
+        @RequiredArgsConstructor
+        public class CourseController {
 
-        @PostMapping
-        public ResponseEntity<ApiResponse<Course>> add(@Valid @RequestBody CourseRequest dto) {
-            return ResponseEntity.status(201).body(ApiResponse.ok("Course created", courseService.add(dto)));
-        }
+            private final CourseService courseService;
 
-        @GetMapping
-        public ResponseEntity<ApiResponse<List<Course>>> getAll() {
-            return ResponseEntity.ok(ApiResponse.ok("Courses fetched", courseService.getAll()));
-        }
+            @PostMapping
+            public ResponseEntity<ApiResponse<Course>> add(@Valid @RequestBody CourseRequest dto) {
+                return ResponseEntity.status(201).body(ApiResponse.ok("Course created", courseService.add(dto)));
+            }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<ApiResponse<Course>> getById(@PathVariable Long id) {
-            return ResponseEntity.ok(ApiResponse.ok("Course fetched", courseService.getById(id)));
-        }
+            @GetMapping
+            public ResponseEntity<ApiResponse<List<Course>>> getAll() {
+                return ResponseEntity.ok(ApiResponse.ok("Courses fetched", courseService.getAll()));
+            }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<ApiResponse<Course>> update(@PathVariable Long id,
-                                                          @Valid @RequestBody CourseRequest dto) {
-            return ResponseEntity.ok(ApiResponse.ok("Course updated", courseService.update(id, dto)));
-        }
+            @GetMapping("/{id}")
+            public ResponseEntity<ApiResponse<Course>> getById(@PathVariable Long id) {
+                return ResponseEntity.ok(ApiResponse.ok("Course fetched", courseService.getById(id)));
+            }
 
-        @DeleteMapping("/{id}")
-        public ResponseEntity<ApiResponse<String>> delete(@PathVariable Long id) {
-            courseService.delete(id);
-            return ResponseEntity.ok(ApiResponse.ok("Course deleted"));
-        }
+            @PutMapping("/{id}")
+            public ResponseEntity<ApiResponse<Course>> update(@PathVariable Long id,
+                                                              @Valid @RequestBody CourseRequest dto) {
+                return ResponseEntity.ok(ApiResponse.ok("Course updated", courseService.update(id, dto)));
+            }
 
-        @PostMapping("/{id}/modules")
-        public ResponseEntity<ApiResponse<Module>> addModule(@PathVariable Long id,
-                                                             @Valid @RequestBody ModuleRequest dto) {
-            return ResponseEntity.status(201).body(ApiResponse.ok("Module added", courseService.addModule(id, dto)));
+            @DeleteMapping("/{id}")
+            public ResponseEntity<ApiResponse<String>> delete(@PathVariable Long id) {
+                courseService.delete(id);
+                return ResponseEntity.ok(ApiResponse.ok("Course deleted"));
+            }
+
+            @PostMapping("/{id}/modules")
+            public ResponseEntity<ApiResponse<Module>> addModule(@PathVariable Long id,
+                                                                 @Valid @RequestBody ModuleRequest dto) {
+                return ResponseEntity.status(201).body(ApiResponse.ok("Module added", courseService.addModule(id, dto)));
+            }
         }
-    }

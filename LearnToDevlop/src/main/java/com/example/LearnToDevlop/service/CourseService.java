@@ -1,22 +1,21 @@
 package com.example.LearnToDevlop.service;
-
 import com.example.LearnToDevlop.dto.CourseRequest;
 import com.example.LearnToDevlop.dto.ModuleRequest;
 import com.example.LearnToDevlop.entity.Course;
+import com.example.LearnToDevlop.entity.CourseModule;
 import com.example.LearnToDevlop.exception.ResourceNotFoundException;
 import com.example.LearnToDevlop.repository.CourseRepository;
 import com.example.LearnToDevlop.repository.ModuleRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
 public class CourseService {
-    private  CourseRepository courseRepository;
-    private ModuleRepository moduleRepository;
+    private final CourseRepository courseRepository;
+    private  final ModuleRepository moduleRepository;
     public Course add(CourseRequest dto) {
         Course c = Course.builder()
                 .title(dto.getTitle())
@@ -49,9 +48,9 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    public Module addModule(Long courseId, ModuleRequest dto) {
+    public CourseModule addModule(Long courseId, ModuleRequest dto) {
         Course c = getById(courseId);
-        Module m = Module.builder()
+        CourseModule m = CourseModule.builder()
                 .title(dto.title())
                 .content(dto.content())
                 .resourceLink(dto.resourceLink())
@@ -61,4 +60,6 @@ public class CourseService {
         return moduleRepository.save(m);
     }
 
+
 }
+

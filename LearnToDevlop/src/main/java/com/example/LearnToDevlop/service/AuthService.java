@@ -4,13 +4,12 @@ import com.example.LearnToDevlop.dto.AuthResponse;
 import com.example.LearnToDevlop.dto.LoginRequest;
 import com.example.LearnToDevlop.dto.RegisterRequest;
 import com.example.LearnToDevlop.entity.Role;
-
+import com.example.LearnToDevlop.entity.User;
 import com.example.LearnToDevlop.repository.UserRepository;
 import com.example.LearnToDevlop.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
