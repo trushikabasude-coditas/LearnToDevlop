@@ -13,8 +13,7 @@ public class GlobalExceptionHandler {
         public ResponseEntity<ApiResponse<?>> handleResourceNotFoundException(ResourceNotFoundException ex) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(false,ex.getMessage(),null))
-';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;'
+                    .body(new ApiResponse(false,ex.getMessage(),null));
 
     }
 }

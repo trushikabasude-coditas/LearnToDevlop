@@ -1,12 +1,15 @@
 package com.example.LearnToDevlop.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-
-public record CourseRequest (@NotBlank String title,
-                             @NotBlank String description,
-                             String technology,
-                             String duration)
-{}
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class CourseRequest {
+    @NotBlank String title;
+    @NotBlank String description;
+    String technology;
+    String duration;
+}

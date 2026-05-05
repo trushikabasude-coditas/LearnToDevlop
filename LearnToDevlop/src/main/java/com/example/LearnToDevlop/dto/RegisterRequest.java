@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-public record RegisterRequest (@NotBlank String username,   @NotBlank
-    @Email String email,
+public record RegisterRequest (@NotBlank String username,
+                               @NotBlank @Email String email,
         @NotBlank
     @Size(min=6)
      String password,

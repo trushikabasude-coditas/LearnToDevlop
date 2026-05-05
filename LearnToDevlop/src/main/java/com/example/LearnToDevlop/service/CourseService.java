@@ -1,60 +1,64 @@
 package com.example.LearnToDevlop.service;
 
 import com.example.LearnToDevlop.dto.CourseRequest;
+import com.example.LearnToDevlop.dto.ModuleRequest;
 import com.example.LearnToDevlop.entity.Course;
 import com.example.LearnToDevlop.exception.ResourceNotFoundException;
 import com.example.LearnToDevlop.repository.CourseRepository;
+import com.example.LearnToDevlop.repository.ModuleRepository;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CourseService {
     private  CourseRepository courseRepository;
-    public CourseRequest add(CourseRequest dto) {
-        Course c=new Course();
-        c.setName(dto.getName());
+    private ModuleRepository moduleRepository;
+    public Course add(CourseRequest dto) {
+        Course c = Course.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .technology(dto.getTechnology())
+                .duration(dto.getDuration())
+                .build();
+        return courseRepository.save(c);
+    }
+    public List <Course> getAll(){
+        return courseRepository.findAll();
+
+    }
+    public Course getById(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
+    }
+    public Course update(Long id, CourseRequest dto) {
+        Course c = getById(id);
+        c.setTitle(dto.getTitle());
+        c.setDescription(dto.getDescription());
         c.setTechnology(dto.getTechnology());
         c.setDuration(dto.getDuration());
-        c.setLink(dto.getLink());
-        return mapToDTO(courseRepository.save(c));
+        return courseRepository.save(c);
     }
-    public List <CourseRequest> getAll(){
-        return courseRepository.findAll()
-                .stream()
-                .map(this::mapToDTO)
-                .toList();
 
-    }
-    public CourseRequest getById(Long id) {
-        Course c = courseRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Cource not found"));
-        return mapToDTO(c);
-    }
-    public CourseRequest update(Long  id, CourseRequest dto) {
-        Course c = courseRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Courses not found"));
-
-        c.setName(dto.getName());
-        c.setTechnology(dto.getTechnology());
-        c.setDuration(dto.getDuration());
-        c.setLink(dto.getLink());
-        return mapToDTO(courseRepository.save(c));
-
-    }
     public void delete(Long id) {
-        if(!courseRepository.existsById(id)){
-            throw new ResourceNotFoundException("Course not found");
-        }
+        if (!courseRepository.existsById(id))
+            throw new ResourceNotFoundException("Course not found with id: " + id);
         courseRepository.deleteById(id);
     }
-    private CourseRequest mapToDTO(Course c){
-        CourseRequest dto = new CourseRequest();
-        dto.setId(c.getId());
-        dto.setName(c.getName());
-        dto.setTechnology(c.getTechnology());
-        dto.setDuration(c.getDuration());
-        dto.setLink(c.getLink());
-        return dto;
+
+    public Module addModule(Long courseId, ModuleRequest dto) {
+        Course c = getById(courseId);
+        Module m = Module.builder()
+                .title(dto.title())
+                .content(dto.content())
+                .resourceLink(dto.resourceLink())
+                .moduleOrder(dto.moduleOrder())
+                .course(c)
+                .build();
+        return moduleRepository.save(m);
     }
 
 }

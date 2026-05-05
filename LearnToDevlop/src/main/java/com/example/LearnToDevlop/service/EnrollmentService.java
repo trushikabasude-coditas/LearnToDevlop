@@ -17,17 +17,14 @@ import java.util.List;
 @Service
 public class EnrollmentService {
     @Autowired
-
-    private UserRepository userRepository;
+    private  UserRepository userRepository;
     @Autowired
-    private final CourseRepository courseRepository;
-   @Autowired
-    private final EnrollmentRepository enrollmentRepository;
-   @Autowired
-   private final UserRepository userRepository;
+    private  CourseRepository courseRepository;
+    @Autowired
+    private  EnrollmentRepository enrollmentRepository;
+
    public EnrollmentDTO enroll(EnrollmentDTO dto){
-       User user = userRepository.findById(dto.getUserId())
-               .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+       User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
        Course course = courseRepository.findById(dto.getCourseId())
                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
@@ -36,7 +33,6 @@ public class EnrollmentService {
        e.setUser(user);
        e.setCourse(course);
        e.setProgress(0);
-       e.setStatus(Status.NOT_STARTED);
        enrollmentRepository.save(e);
        return dto;
    }
