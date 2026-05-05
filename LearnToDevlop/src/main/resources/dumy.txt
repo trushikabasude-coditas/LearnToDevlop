@@ -1,0 +1,54 @@
+@RestController
+@RequestMapping("/api/enrollments")
+@RequiredArgsConstructor
+public class EnrollmentController {
+
+private final EnrollmentService enrollmentService;
+
+// POST /api/enrollments?userId=1&courseId=2
+@PostMapping
+public ResponseEntity<ApiResponse<Enrollment>> enroll(
+@RequestParam Long userId,
+@RequestParam Long courseId) {
+return ResponseEntity.status(201)
+.body(ApiResponse.ok("Enrolled successfully", enrollmentService.enroll(userId, courseId)));
+}
+
+// GET /ap  i/enrollments/user/1
+@GetMapping("/user/{userId}")
+public ResponseEntity<ApiResponse<List<Enrollment>>> getByUser(@PathVariable Long userId) {
+return ResponseEntity.ok(ApiResponse.ok("Enrollments fetched", enrollmentService.getByUser(userId)));
+}
+
+// GET /api/enrollments/course/1
+@GetMapping("/course/{courseId}")
+public ResponseEntity<ApiResponse<List<Enrollment>>> getByCourse(@PathVariable Long courseId) {
+return ResponseEntity.ok(ApiResponse.ok("Enrollments fetched", enrollmentService.getByCourse(courseId)));
+}
+
+// PATCH /api/enrollments/1/progress?progress=50
+@PatchMapping("/{id}/progress")
+public ResponseEntity<ApiResponse<Enrollment>> updateProgress(
+@PathVariable Long id,
+@RequestParam int progress) {
+return ResponseEntity.ok(ApiResponse.ok("Progress updated", enrollmentService.updateProgress(id, progress)));
+}
+}
+
+Also add @JsonIgnore on user and course in Enrollment to avoid infinite loop — same fix as CourseModule:
+java@JsonIgnore
+@ManyToOne
+@JoinColumn(name = "user_id")
+private User user;
+
+@JsonIgnore
+@ManyToOne
+@JoinColumn(name = "course_id")
+private Course course;
+
+Postman:
+MethodURLWhatPOSThttp://localhost:8080/api/enrollments?userId=1&courseId=1Enroll userGEThttp://localhost:8080/api/enrollments/user/1User's enrollmentsGEThttp://localhost:8080/api/enrollments/course/1Course enrollmentsPATCHhttp://localhost:8080/api/enrollments/1/progress?progress=50Update progress
+All need Authorization: Bearer <token> header.Usage limit reached ∙ Resets 4:00 PM ∙ limits shared with Claude CodeKeep workingSonnet 4.6Claude is AI and can make m
+
+
+

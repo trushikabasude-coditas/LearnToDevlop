@@ -9,37 +9,45 @@ import com.example.LearnToDevlop.exception.ResourceNotFoundException;
 import com.example.LearnToDevlop.repository.CourseRepository;
 import com.example.LearnToDevlop.repository.EnrollmentRepository;
 import com.example.LearnToDevlop.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EnrollmentService {
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  CourseRepository courseRepository;
-    @Autowired
-    private  EnrollmentRepository enrollmentRepository;
+    private  final  UserRepository userRepository;
 
-   public EnrollmentDTO enroll(EnrollmentDTO dto){
-       User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    private  final  CourseRepository courseRepository;
 
-       Course course = courseRepository.findById(dto.getCourseId())
+    private  final EnrollmentRepository enrollmentRepository;
+//user entroll
+   public Enrollment enroll(Long userId,Long courseId){
+      if(enrollmentRepository.existsByUserIdAndCourseId(userId,courseId))
+          throw new RuntimeException("User already enrolled for this course");
+       User user = userRepository.findById(userId)
+               .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+       Course course = courseRepository.findById(courseId)
                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
-       Enrollment e=new Enrollment();
-       e.setUser(user);
-       e.setCourse(course);
-       e.setProgress(0);
-       enrollmentRepository.save(e);
-       return dto;
+
+         Enrollment e = new Enrollment();
+         e.setUser(user);
+         e.setCourse(course);
+        e.setProgress(0);
+       return enrollmentRepository.save(e);
+   }
+   public List<Enrollment> getByUser(Long userId){
+       return enrollmentRepository.findByUserId(userId);
    }
 
-    public List<Enrollment> getUserCourses(Long userId) {
-        return enrollmentRepository.findByUserId(userId);
+    public List<Enrollment> getByCourse(Long courseId) {
+        return enrollmentRepository.findByCourseId(courseId);
     }
+
 
 
 }

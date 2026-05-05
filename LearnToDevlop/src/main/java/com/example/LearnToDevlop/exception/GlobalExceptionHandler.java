@@ -16,4 +16,5 @@ public class GlobalExceptionHandler {
                     .body(new ApiResponse(false,ex.getMessage(),null));
 
     }
+
 }
