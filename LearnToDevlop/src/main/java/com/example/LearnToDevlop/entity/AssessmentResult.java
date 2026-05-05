@@ -2,9 +2,7 @@ package com.example.LearnToDevlop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -28,8 +26,7 @@ public class AssessmentResult {
     private boolean passed;
     private LocalDateTime submittedAt;
     @PrePersist
-    public void prePersist()
-    {
+    public void prePersist() {
         submittedAt=LocalDateTime.now();
     }
 }

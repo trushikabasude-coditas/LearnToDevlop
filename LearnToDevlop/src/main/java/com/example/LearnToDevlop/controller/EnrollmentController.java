@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/enroll")
+@RequestMapping("/api/enroll")
 public class EnrollmentController {
     @Autowired
     private EnrollmentService enrollmentService;
