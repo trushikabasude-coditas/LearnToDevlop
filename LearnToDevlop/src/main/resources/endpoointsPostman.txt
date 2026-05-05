@@ -1,0 +1,29 @@
+Register admin
+POST http://localhost:8080/api/auth/register
+body{
+"username": "admin",
+"email": "admin@test.com",
+"password": "pass123",
+"fullName": "Admin User",
+"role": "ADMIN"
+}
+
+ Register EMPLOYEE
+POST http://localhost:8080/api/auth/register
+{
+"username": "john",
+"email": "john@test.com",
+"password": "pass123",
+"fullName": "John Doe",
+"role": "EMPLOYEE"
+}
+
+//now admin create course
+Authoraization-bearer put logins token
+Post-http://localhost:8080/api/courses
+{
+     "title": "Java Basics",
+     "description": "Learn Java from scratch",
+     "technology": "Java",
+     "duration": "4 weeks"
+     }

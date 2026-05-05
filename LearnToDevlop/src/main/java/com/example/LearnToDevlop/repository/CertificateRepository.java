@@ -1,7 +1,6 @@
 package com.example.LearnToDevlop.repository;
 
 import com.example.LearnToDevlop.entity.Certificate;
-import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

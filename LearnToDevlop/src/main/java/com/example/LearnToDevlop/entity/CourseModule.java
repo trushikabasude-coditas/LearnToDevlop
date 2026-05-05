@@ -1,11 +1,18 @@
 package com.example.LearnToDevlop.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Table(name = "modules")
 @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Slf4j
+
 public class CourseModule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

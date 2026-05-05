@@ -1,14 +1,10 @@
 package com.example.LearnToDevlop.config;
-
 import com.example.LearnToDevlop.security.JwtFilter;
 import com.example.LearnToDevlop.security.UserDetailServiceImplementation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,9 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 
 public class SecurityConfig {
-@Autowired
-    private   JwtFilter jwtFilter;
-//    private final UserDetailServiceImplementation userDetailsService;
+    private final JwtFilter jwtFilter;
+    private final UserDetailServiceImplementation userDetailsService;
+
+    public SecurityConfig(JwtFilter jwtFilter, UserDetailServiceImplementation userDetailsService) {
+        this.jwtFilter = jwtFilter;
+        this.userDetailsService = userDetailsService;
+    }
 
 
     @Bean
@@ -41,30 +41,24 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/courses/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-//                .authenticationProvider(authProvider())
+                .authenticationProvider(authProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
+
     }
 
-//    private AuthenticationProvider authProvider() {
-//    }
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider p = new DaoAuthenticationProvider(userDetailsService);
+        p.setPasswordEncoder(encoder());
+        return p;
+    }
 
-//    @Bean
-//    public DaoAuthenticationProvider authProvider() {
-//        DaoAuthenticationProvider p = new DaoAuthenticationProvider();
-//        p.setUserDetailsService(userDetailsService);
-//        p.setPasswordEncoder(encoder());
-//        return p;
-//    }
-
-//    @Bean
-//    public AuthenticationManager authManager(AuthenticationConfiguration c) throws Exception {
-//        return c.getAuthenticationManager();
-//    }
-
-
-
+    @Bean
+    public AuthenticationManager authManager(AuthenticationConfiguration c) throws Exception {
+        return c.getAuthenticationManager();
+    }
 
     @Bean
     public PasswordEncoder encoder() {
