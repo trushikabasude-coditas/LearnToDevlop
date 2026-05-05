@@ -4,6 +4,7 @@ import com.example.LearnToDevlop.dto.ApiResponse;
 import com.example.LearnToDevlop.dto.CourseRequest;
 import com.example.LearnToDevlop.dto.ModuleRequest;
 import com.example.LearnToDevlop.entity.Course;
+import com.example.LearnToDevlop.entity.CourseModule;
 import com.example.LearnToDevlop.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +49,8 @@ import java.util.List;
             }
 
             @PostMapping("/{id}/modules")
-            public ResponseEntity<ApiResponse<Module>> addModule(@PathVariable Long id,
-                                                                 @Valid @RequestBody ModuleRequest dto) {
+            public ResponseEntity<ApiResponse<CourseModule>> addModule(@PathVariable Long id,
+                                                                       @Valid @RequestBody ModuleRequest dto) {
                 return ResponseEntity.status(201).body(ApiResponse.ok("Module added", courseService.addModule(id, dto)));
             }
         }
