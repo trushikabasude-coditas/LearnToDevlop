@@ -1,5 +1,6 @@
 package com.example.LearnToDevlop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +22,14 @@ public class Certificate {
     private String certificateNumber;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"password", "role", "authorities",
+            "accountNonExpired", "accountNonLocked", "credentialsNonExpired", "enabled"})
+
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
+    @JsonIgnoreProperties({"modules"})
     private Course course;
   private LocalDateTime issuedAt;
     @PrePersist

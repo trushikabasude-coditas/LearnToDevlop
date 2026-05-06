@@ -9,6 +9,7 @@ import com.example.LearnToDevlop.repository.ModuleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -17,6 +18,9 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private  final ModuleRepository moduleRepository;
     public Course add(CourseRequest dto) {
+        Objects.requireNonNull(dto, "Course request must not be null");
+        Objects.requireNonNull(dto.getTitle(), "Course title must not be null");
+
         Course c = Course.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
@@ -30,10 +34,14 @@ public class CourseService {
 
     }
     public Course getById(Long id) {
+        Objects.requireNonNull(id, "Course ID must not be null");
         return courseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
     }
     public Course update(Long id, CourseRequest dto) {
+        Objects.requireNonNull(id, "Course ID must not be null");
+        Objects.requireNonNull(dto, "Course request must not be null");
+
         Course c = getById(id);
         c.setTitle(dto.getTitle());
         c.setDescription(dto.getDescription());
@@ -49,6 +57,8 @@ public class CourseService {
     }
 
     public CourseModule addModule(Long courseId, ModuleRequest dto) {
+        Objects.requireNonNull(courseId, "Course ID must not be null");
+        Objects.requireNonNull(dto, "Module request must not be null");
         Course c = getById(courseId);
         CourseModule m = CourseModule.builder()
                 .title(dto.title())

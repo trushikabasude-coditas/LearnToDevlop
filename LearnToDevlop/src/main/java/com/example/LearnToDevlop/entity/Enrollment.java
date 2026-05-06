@@ -28,14 +28,17 @@ public class Enrollment {
 //    @JsonIgnore
     @JoinColumn(name="course_id")
     private Course course;
-    private int progress;
+    private int progress=0;
     private LocalDateTime enrolledAt;
     @Enumerated(EnumType.STRING)
     private EnrollmentStatus status;
 
     @PrePersist
-    void prePersist()
-    { enrolledAt = LocalDateTime.now();
+    void prePersist() {
+        enrolledAt = LocalDateTime.now();
+
+        status = EnrollmentStatus.IN_PROGRESS;
+        progress = 0;
     }
 
 }

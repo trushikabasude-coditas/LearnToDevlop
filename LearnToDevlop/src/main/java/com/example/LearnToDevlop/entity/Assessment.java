@@ -19,7 +19,6 @@ public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "enrollment_id")
 //    @JsonIgnore
@@ -36,7 +35,8 @@ public class Assessment {
 //    @JoinColumn(name = "course_id",nullable = false,unique = true)
 //    private Course course;
 @PrePersist
-void prePersist() { attemptAt = LocalDateTime.now(); }
+void prePersist() { attemptAt = LocalDateTime.now();
+}
 
 
 }

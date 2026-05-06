@@ -7,7 +7,6 @@ register
     "fullName": "Admin User",
     "role": "ADMIN"
 }
-
 employee register
 http://localhost:8080/api/auth/register
 {
@@ -29,7 +28,6 @@ as employee
   "username": "mil",
   "password": "mil@123"
 }
-
 //using admin token
 add course---http://localhost:8080/api/courses
 {
@@ -38,7 +36,6 @@ add course---http://localhost:8080/api/courses
   "technology": "Java",
   "duration": "4 weeks"
 }
-
 GET-http://localhost:8080/api/courses/3(all 3rd course)
 POST-http://localhost:8080/api/courses/3/modules-----add module i that course
 //body

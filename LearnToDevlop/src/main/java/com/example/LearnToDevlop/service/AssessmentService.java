@@ -12,6 +12,7 @@ import com.example.LearnToDevlop.repository.EnrollmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class AssessmentService {
     private final CertificateRepository certificateRepository;
 
     public Assessment submit(Long enrollmentId, boolean passed) {
+        Objects.requireNonNull(enrollmentId, "Enrollment ID must not be null");
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Enrollment not found"));
 
