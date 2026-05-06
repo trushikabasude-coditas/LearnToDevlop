@@ -26,7 +26,6 @@ public class AuthController {
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(ApiResponse.ok("Login successful", authService.login(req)));
     }
-
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<String>> logout(
             @RequestHeader(value = "Authorization", required = false) String header) {

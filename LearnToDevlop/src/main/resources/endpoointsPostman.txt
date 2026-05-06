@@ -1,3 +1,62 @@
+admin
+register
+{
+    "username": "Trushika",
+    "email": "tru@test.com",
+    "password": "true123",
+    "fullName": "Admin User",
+    "role": "ADMIN"
+}
+
+employee register
+http://localhost:8080/api/auth/register
+{
+    "username": "mil",
+    "email": "mil@gmail.com",
+    "password": "mil@123",
+    "fullName": "Mil Veer",
+    "role": "EMPLOYEE"
+}
+Login-Admin
+Body
+{
+  "username": "Trushika",
+  "password": "true123"
+}
+output-token
+as employee
+{
+  "username": "mil",
+  "password": "mil@123"
+}
+
+//using admin token
+add course---http://localhost:8080/api/courses
+{
+  "title": "Java Basics",
+  "description": "Learn Java from scratch",
+  "technology": "Java",
+  "duration": "4 weeks"
+}
+
+GET-http://localhost:8080/api/courses/3(all 3rd course)
+POST-http://localhost:8080/api/courses/3/modules-----add module i that course
+//body
+{
+  "title": "Module 1 - PyCharm",
+  "content": "Libraries",
+  "resourceLink": "https://docs.oracle.com/python",
+  "moduleOrder": 2
+}
+
+
+
+
+
+
+
+
+
 Register admin
 POST http://localhost:8080/api/auth/register
 body{
@@ -28,4 +87,8 @@ Post-http://localhost:8080/api/courses
      "duration": "4 weeks"
 }
 ..under course we can create the  modules
+
+
+//username alrredy taken exception
+//want exceoption when employee try to delete the courses with login token
 

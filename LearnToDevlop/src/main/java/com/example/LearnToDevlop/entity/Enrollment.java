@@ -30,9 +30,12 @@ public class Enrollment {
     private Course course;
     private int progress;
     private LocalDateTime enrolledAt;
+    @Enumerated(EnumType.STRING)
+    private EnrollmentStatus status;
 
     @PrePersist
     void prePersist()
     { enrolledAt = LocalDateTime.now();
     }
+
 }

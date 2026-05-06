@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
 
-    Optional<Assessment> findByCourseId(Long courseId);
+    Optional<Assessment> findByEnrollmentId(Long enrollmentId);
 }
